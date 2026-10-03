@@ -4,6 +4,10 @@ An interactive demo of an energy-savings sales tool for commercial buildings in 
 
 **Live demo:** https://ndanilovich12.github.io/noco-payback/
 
+## Background
+
+Built as a prototype for NOCO through UB AI for Good, a University at Buffalo program in which student teams build AI solutions for partner organizations. This was a team project; I led the design and development of the prototype.
+
 ## What it does
 
 **Customer app (phone)**
