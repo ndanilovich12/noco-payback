@@ -1,61 +1,30 @@
 # NOCO Payback
 
-An interactive demo of an energy-savings sales tool for commercial buildings in Western New York. It shows two views of the same deal side by side: the customer's mobile app and the provider's desktop console. Both are driven by one shared calculation engine, so a change in one view updates the other.
+Live demo: https://ndanilovich12.github.io/noco-payback/
 
-**Live demo:** https://ndanilovich12.github.io/noco-payback/
+A prototype my team built for NOCO through UB AI for Good. I led the design and the build.
 
-## Background
+The idea: a small business owner in Western New York should be able to find out what energy upgrades would save them, and what they'd cost after incentives, without waiting weeks for a quote. The demo shows the customer's phone app next to NOCO's desktop console. Both run off the same calculation code, so when a technician logs something in the console, the customer's numbers change too.
 
-Built as a prototype for NOCO through UB AI for Good, a University at Buffalo program in which student teams build AI solutions for partner organizations. This was a team project; I led the design and development of the prototype.
+## How it works
 
-## What it does
+On the phone, a customer confirms their building, snaps a utility bill, and books a technician visit. After the visit they get offers showing yearly savings, incentives, what they'd pay, and how long until it pays for itself.
 
-**Customer app (phone)**
+On the console, NOCO staff see the customer's building info, run the technician walkthrough, and build the offer. Every number can be expanded to show the math behind it.
 
-- Confirms the building from its address and shows what similar buildings save
-- Takes a utility bill photo to replace typical-building estimates with real usage
-- Books a technician visit
-- Presents ranked upgrade offers with savings, incentives, net cost and payback
+The engine looks at four upgrades:
 
-**Operator console (desktop)**
+- Insulation, from wall area and the change in R-value over a Buffalo heating and cooling season
+- LED lighting, from the share of electric use that goes to lighting for that building type
+- Heating, either a heat pump or high-efficiency gas depending on the current system
+- Solar, sized to the usable roof and capped at what the building actually uses
 
-- Customer list with building details and recent activity
-- Technician walkthrough that records what was found on site
-- Upgrades ranked by payback, with the full math behind every number
-- Offer builder that packages upgrades and incentives for the customer
+Estimates get tighter as better data comes in. With only building type and size it's ±35%. A utility bill brings that to ±20%, and a technician walkthrough to ±10%.
 
-## The payback engine
+## Built with
 
-One set of functions estimates each upgrade from the building's size, shape, envelope, heating system and energy use:
+Plain HTML, CSS and JavaScript in one file. No frameworks and no build step. To run it, open `index.html` in a browser.
 
-| Upgrade | Basis of the estimate |
-| --- | --- |
-| Insulation | Wall area and R-value change over heating and cooling degree-days |
-| LED lighting | Lighting share of electric use by building type |
-| Heating | Heat pump or high-efficiency gas, from the existing system's efficiency |
-| Solar | Usable roof area, capped at annual electric use |
+## Heads up
 
-For each upgrade the engine returns energy saved, annual cost savings, project cost, incentives, net investment, simple payback and ten-year value. Every result carries a plain-language explanation and the step-by-step arithmetic, which the console can show on request.
-
-Estimates also carry a confidence level that tightens as better data arrives:
-
-| Data available | Confidence | Range |
-| --- | --- | --- |
-| Building type and size only | Low | ±35% |
-| Utility bills | Medium | ±20% |
-| Technician walkthrough | High | ±10% |
-
-## Tech
-
-- A single `index.html` file: HTML, CSS and vanilla JavaScript
-- No frameworks, build step or dependencies
-- Light and dark themes
-- Responsive layout that collapses to the phone view on small screens
-
-## Run it locally
-
-Download `index.html` and open it in a browser.
-
-## Notes
-
-This is a demo. The customers, addresses and contacts are fictional, and the customer statistics and any assumption marked ◊ are placeholders rather than real program or company data.
+The customers, addresses and contacts are made up. The customer stats and anything marked ◊ are placeholder numbers, not NOCO's real data.
