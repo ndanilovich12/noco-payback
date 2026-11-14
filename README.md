@@ -19,7 +19,16 @@ The engine looks at four upgrades:
 - Heating, either a heat pump or high-efficiency gas depending on the current system
 - Solar, sized to the usable roof and capped at what the building actually uses
 
-Estimates get tighter as better data comes in. With only building type and size it's ±35%. A utility bill brings that to ±20%, and a technician walkthrough to ±10%.
+## November 2026 update
+
+This version is the one we presented. It adds a guided demo that walks through the whole process in nine steps, from a free visit to a same-day quote:
+
+- It runs on public data for real Buffalo addresses: NYSERDA electric prices and the City of Buffalo assessment roll.
+- AI reads the utility bill photo and the technician's spoken walkthrough. Formulas do the math, so every dollar on the quote can be traced.
+- In the demo, 21 of 21 quote inputs are filled in before anyone types.
+- The customer picks between two offers on their phone while the console shows what was sent.
+
+Use the Next button or the arrow keys to move through the steps.
 
 ## Built with
 
@@ -27,4 +36,4 @@ Plain HTML, CSS and JavaScript in one file. No frameworks and no build step. To 
 
 ## Heads up
 
-The customers, addresses and contacts are made up. The customer stats and anything marked ◊ are placeholder numbers, not NOCO's real data.
+Business names, contacts and bills are made up for the demo. The customer stats and anything marked ◊ are placeholder numbers, not NOCO's real data.
