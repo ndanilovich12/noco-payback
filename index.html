@@ -748,6 +748,137 @@ body.has-bg::before{opacity:.58;height:600px;-webkit-mask-image:linear-gradient(
 .mmap svg .pin[data-fac] circle.body{r:48}.mmap svg .pin[data-fac] circle.pulse{r:52}.mmap svg .pin[data-fac] text{font-size:36px}
 .mmap .ml.water{font-size:50px}.mmap .ml.hall{font-size:42px}.mmap .ml.i190{font-size:42px}.mmap .ml.cust{font-size:56px;stroke-width:12px}.mmap .ml.city{font-size:62px}
 
+
+
+/* ===== v7 overlays: finale, Q&A screens, quote sheet ===== */
+#ovl{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:28px;background:rgba(6,24,15,.62);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+#ovl.show{display:flex;animation:fade .3s ease both}
+#ovl .ox{position:absolute;right:22px;top:18px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;display:grid;place-items:center;cursor:pointer;z-index:2}
+#ovl .ox:hover{background:rgba(255,255,255,.26)}
+#ovl .okeys{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);font:600 12px var(--body);color:rgba(255,255,255,.7);white-space:nowrap}
+/* finale */
+#ovl.fin{background:radial-gradient(1200px 700px at 30% 40%,#12412A 0%,#082616 55%,#051A0F 100%);padding:0}
+.fin-in{width:min(1500px,100%);height:100%;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px;align-items:center;padding:48px 56px;color:#EAF6EF}
+.fin-map{position:relative;border-radius:18px;overflow:hidden;border:1px solid #1F4A33;box-shadow:0 30px 80px rgba(0,0,0,.5),inset 0 0 60px rgba(0,0,0,.45);animation:finzoom 2.2s cubic-bezier(.2,.8,.2,1) both}
+@keyframes finzoom{from{transform:scale(1.35);opacity:0}to{transform:none;opacity:1}}
+.fin-map.mmap svg .pin:not([data-fac]) circle.body{opacity:.18;transition:opacity .4s,r .4s;fill:#7FD6A2}
+.fin-map.mmap svg .pin.lit circle.body{opacity:1;r:26;fill:#F5A865;stroke:#fff;filter:drop-shadow(0 0 14px #F08A3C)}
+.fin-map.mmap svg .pin.lit{animation:litpop .6s cubic-bezier(.2,1.6,.4,1) both;transform-box:fill-box;transform-origin:center}
+@keyframes litpop{from{transform:scale(2.6)}to{transform:none}}
+.fin-map.mmap svg text[font-size="17"]{display:none}
+.fin-side{display:flex;flex-direction:column;gap:18px;min-width:0}
+.fin-side .eyebrow{color:#F5A865}
+.fin-side h2{font:800 clamp(30px,3.2vw,50px)/1.05 var(--display);margin:0;color:#fff;letter-spacing:-.02em;text-wrap:balance}
+.fin-side h2 em{font-style:normal;color:#9BE8B0}
+.fstat{display:flex;flex-direction:column;gap:2px;padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+.fstat .lbl{font:600 13.5px var(--body);color:#BFE3CF}
+.fstat b{font:800 clamp(34px,3.6vw,56px)/1.05 var(--display);color:#fff;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.fstat b small{font-size:.45em;font-weight:700;color:#BFE3CF;margin-left:6px}
+.fstat.hi b{color:#F5A865}
+.fstat .src{color:#9CCBB0;font-size:12px;display:inline-flex;gap:5px;align-items:center}
+.fbig{opacity:0;transform:translateY(14px);transition:opacity .8s,transform .8s}
+.fbig.in{opacity:1;transform:none}
+.fbig.fstat{background:linear-gradient(135deg,rgba(232,115,28,.24),rgba(232,115,28,.08));border-color:rgba(245,168,101,.5)}
+.fclose{font:700 clamp(17px,1.5vw,22px)/1.3 var(--display);color:#fff}
+/* Q&A */
+.qa{width:min(1080px,100%);max-height:100%;overflow:auto;background:var(--surface);color:var(--ink);border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.45);padding:34px 38px;display:flex;flex-direction:column;gap:20px;animation:rise .4s cubic-bezier(.2,.8,.2,1) both}
+.qa h2{font:800 clamp(26px,2.6vw,38px)/1.1 var(--display);margin:0;letter-spacing:-.02em;text-wrap:balance}
+.qa .qtabs{display:flex;gap:8px;flex-wrap:wrap}
+.qa .qtab{display:inline-flex;gap:8px;align-items:center;padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font:600 13.5px var(--body);color:var(--muted);cursor:pointer}
+.qa .qtab kbd{font:700 11.5px var(--body);background:var(--sunk);border-radius:5px;padding:1px 6px;color:var(--ink)}
+.qa .qtab[aria-current="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.qa .qtab[aria-current="true"] kbd{background:rgba(255,255,255,.22);color:inherit}
+.qgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.qgrid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.qc{border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px;font-size:15px;line-height:1.45;animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
+.qc:nth-child(2){animation-delay:.08s}.qc:nth-child(3){animation-delay:.16s}.qc:nth-child(4){animation-delay:.24s}
+.qc b.big{font:800 30px/1.1 var(--display);letter-spacing:-.02em}
+.qc h4{margin:0;font:700 16px var(--display);display:flex;gap:8px;align-items:center}
+.qc ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;color:var(--ink)}
+.qc.real{background:var(--accent-soft);border-color:transparent}.qc.est{background:var(--hi-soft);border-color:transparent}.qc.demo{background:var(--sunk);border-color:transparent}
+.qtable{width:100%;border-collapse:collapse;font-size:15px}
+.qtable th{text-align:left;font:700 11.5px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:6px 10px;border-bottom:2px solid var(--line)}
+.qtable td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.qtable td:first-child{font-weight:700;white-space:nowrap}
+.qtable tr{animation:rise .45s ease both}.qtable tr:nth-child(2){animation-delay:.06s}.qtable tr:nth-child(3){animation-delay:.12s}.qtable tr:nth-child(4){animation-delay:.18s}.qtable tr:nth-child(5){animation-delay:.24s}
+.qnote{font-size:13.5px;color:var(--muted)}
+/* quote sheet */
+.sheet{width:min(760px,100%);max-height:100%;overflow:auto;background:#fff;color:#13231A;border-radius:6px;box-shadow:0 40px 100px rgba(0,0,0,.55);padding:38px 44px 30px;display:flex;flex-direction:column;gap:16px;font-size:14px;animation:sheetin .7s cubic-bezier(.2,.9,.2,1) both;position:relative}
+@keyframes sheetin{from{opacity:0;transform:translateY(60px) rotate(-1.5deg) scale(.96)}to{opacity:1;transform:none}}
+.sheet::before{content:"";position:absolute;left:0;right:0;top:0;height:8px;background:linear-gradient(90deg,#0F6B3C 0 72%,#E8731C 72% 100%);border-radius:6px 6px 0 0}
+.sheet .sh{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.sheet .sh img{height:38px}
+.sheet .sh .r{text-align:right;font-size:12.5px;color:#56665C;line-height:1.5}
+.sheet h2{font:800 26px/1.1 var(--display);margin:0;letter-spacing:-.02em}
+.sheet .parties{display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:13.5px;line-height:1.5}
+.sheet .parties span{display:block;font:700 10.5px var(--body);letter-spacing:.08em;text-transform:uppercase;color:#56665C}
+.sheet table{width:100%;min-width:0;table-layout:fixed;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.sheet th{font:700 10.5px var(--body);letter-spacing:.08em;text-transform:uppercase;color:#56665C;text-align:right;padding:6px 8px;border-bottom:2px solid #13231A}
+.sheet th:first-child,.sheet td:first-child{text-align:left;width:26%}
+.sheet td{padding:9px 8px;border-bottom:1px solid #D4DDD7;text-align:right}
+.sheet tbody tr{animation:rise .4s ease both}.sheet tbody tr:nth-child(1){animation-delay:.5s}.sheet tbody tr:nth-child(2){animation-delay:.7s}.sheet tbody tr:nth-child(3){animation-delay:.9s}.sheet tbody tr:nth-child(4){animation-delay:1.1s}
+.sheet tfoot td{font-weight:800;border-bottom:0;border-top:2px solid #13231A;animation:rise .4s 1.3s ease both}
+.sheet .tot{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;animation:rise .5s 1.5s ease both}
+.sheet .tot div{background:#EEF2EF;border-radius:8px;padding:12px}
+.sheet .tot div.g{background:#0F6B3C;color:#fff}
+.sheet .tot span{display:block;font-size:11.5px;opacity:.8}
+.sheet .tot b{font:800 22px var(--display)}
+.sheet .fineprint{font-size:11.5px;color:#56665C;line-height:1.5}
+.sheet .sign{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-top:4px}
+.sheet .sign .ln{flex:1;border-top:1px solid #13231A;padding-top:5px;font-size:11.5px;color:#56665C}
+.sheet .stamp{font:700 12px var(--body);color:#E8731C;border:2px solid #E8731C;border-radius:8px;padding:6px 10px;transform:rotate(-3deg);white-space:nowrap;animation:stamp .5s 1.9s cubic-bezier(.2,1.8,.4,1) both}
+@keyframes stamp{from{opacity:0;transform:rotate(-12deg) scale(2.2)}to{opacity:1;transform:rotate(-3deg)}}
+@media (max-width:900px){.fin-in{grid-template-columns:1fr;padding:60px 20px 40px;overflow:auto}.qgrid,.qgrid.two{grid-template-columns:1fr}.qa{padding:22px}.sheet{padding:28px 20px}}
+@media (prefers-reduced-motion: reduce){.fin-map,.fin-map.mmap svg .pin.lit,.qa,.qc,.sheet,.sheet tbody tr,.sheet tfoot td,.sheet .tot,.sheet .stamp,.qtable tr{animation:none}}
+/* ===== v7 cinematic pass ===== */
+.sb-l{text-wrap:balance}
+mark.kw{background:linear-gradient(transparent 55%,color-mix(in srgb,var(--hi) 38%,transparent) 55%);color:inherit;font-weight:700;border-radius:2px;padding:0 1px;animation:kwin .5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes kwin{from{background-color:color-mix(in srgb,var(--hi) 45%,transparent);box-shadow:0 0 0 4px color-mix(in srgb,var(--hi) 30%,transparent)}to{background-color:transparent;box-shadow:0 0 0 0 transparent}}
+.tx{scroll-behavior:smooth;font-size:15px;line-height:1.7}
+.wave{display:inline-flex;gap:3px;align-items:center;height:18px;margin-left:10px}
+.wave i{width:3px;border-radius:2px;background:var(--hi);height:100%;transform-origin:center;animation:wave 0.9s ease-in-out infinite}
+.wave i:nth-child(2){animation-delay:-.15s}.wave i:nth-child(3){animation-delay:-.45s}.wave i:nth-child(4){animation-delay:-.3s}.wave i:nth-child(5){animation-delay:-.6s}.wave i:nth-child(6){animation-delay:-.2s}.wave i:nth-child(7){animation-delay:-.5s}
+@keyframes wave{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+.found .kv{border-radius:8px;margin:0 -8px;padding-left:8px;padding-right:8px;transition:background .4s}
+.found .kv.hit{animation:rowhit 1.5s ease both}
+.found .kv.hit b{animation:valin .5s cubic-bezier(.2,1.4,.4,1) both;color:var(--accent)}
+@keyframes rowhit{0%{background:color-mix(in srgb,var(--hi) 30%,transparent)}100%{background:transparent}}
+@keyframes valin{from{opacity:0;transform:translateX(10px) scale(.92)}to{opacity:1;transform:none}}
+.fcount{margin-left:auto;font:700 12.5px var(--body);color:var(--muted);background:var(--sunk);padding:3px 9px;border-radius:999px}
+.fcount.all{background:var(--accent-soft);color:var(--accent)}
+.issues li.hit{animation:rowhit 1.5s ease both}
+.chk .dot.tickin{animation:tickin .45s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes tickin{from{transform:scale(.2);opacity:0}to{transform:none;opacity:1}}
+.inmeter{display:grid;grid-template-columns:repeat(21,minmax(0,1fr));gap:3px}
+.inmeter i{height:9px;border-radius:3px;background:var(--sunk);transition:background .35s,transform .35s}
+.inmeter i.on{background:var(--accent)}
+.inmeter i.fresh{background:var(--hi);transform:scaleY(1.5)}
+.ranked .kv{position:relative;padding-bottom:14px;animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
+.ranked .kv:nth-child(2){animation-delay:.18s}.ranked .kv:nth-child(3){animation-delay:.36s}.ranked .kv:nth-child(4){animation-delay:.54s}
+.ranked .rbar{position:absolute;left:0;bottom:5px;height:4px;border-radius:2px;background:linear-gradient(90deg,var(--accent),#7DBE95);width:var(--w);transform-origin:left;animation:barin .8s cubic-bezier(.2,.8,.2,1) both;animation-delay:inherit}
+.ranked .kv:nth-child(1) .rbar{background:linear-gradient(90deg,var(--hi),#F5A865)}
+.bsteps li{transition:color .3s}
+.bsteps li.done .dot{animation:tickin .45s cubic-bezier(.2,1.6,.4,1) both}
+#beam{position:fixed;left:0;top:0;width:0;height:0;z-index:60;pointer-events:none}
+#beam .bl{position:fixed;height:3px;border-radius:2px;background:linear-gradient(90deg,transparent,var(--hi),transparent);opacity:0;transform-origin:left center}
+#beam .bd{position:fixed;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px var(--hi),0 0 22px 8px color-mix(in srgb,var(--hi) 70%,transparent);opacity:0}
+#beam .bt{position:fixed;transform:translate(-50%,-150%);font:700 11.5px var(--body);letter-spacing:.04em;background:var(--ink);color:var(--bg);padding:4px 10px;border-radius:999px;white-space:nowrap;opacity:0}
+.linkhit{animation:linkhit .9s ease both}
+@keyframes linkhit{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--hi) 65%,transparent)}100%{box-shadow:0 0 0 22px transparent}}
+.capline.capin>*{animation:none}
+.capline.capin{animation:capin .6s cubic-bezier(.2,.8,.2,1) both}
+@keyframes capin{from{opacity:0;transform:translateY(8px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+.confetti{position:fixed;z-index:70;pointer-events:none;width:9px;height:14px;border-radius:2px;left:0;top:0}
+.ptimer{margin-left:6px;padding:1px 6px;border-radius:5px;background:var(--surface);color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:0;cursor:pointer}
+.ptimer.warn{color:#fff;background:var(--hi)}
+.ptimer.over{color:#fff;background:var(--crit)}
+.recap .kpis.rk .kpi{animation:rise .6s cubic-bezier(.2,.8,.2,1) both}.recap .kpis.rk .kpi:nth-child(2){animation-delay:.15s}
+.recap .mline{animation:rise .6s .3s cubic-bezier(.2,.8,.2,1) both}
+.recap .rpath li{animation:rise .55s cubic-bezier(.2,.8,.2,1) both}
+.recap .rpath li:nth-child(1){animation-delay:.5s}.recap .rpath li:nth-child(2){animation-delay:.75s}.recap .rpath li:nth-child(3){animation-delay:1s}.recap .rpath li:nth-child(4){animation-delay:1.25s}
+.deal.won{animation:won 1.1s ease both}
+@keyframes won{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--hi) 70%,transparent);transform:scale(.985)}40%{transform:scale(1.008)}100%{box-shadow:0 0 0 26px transparent;transform:none}}
+@media (prefers-reduced-motion: reduce){mark.kw,.found .kv.hit,.found .kv.hit b,.ranked .kv,.ranked .rbar,.capline.capin,.wave i,.deal.won{animation:none}}
 </style>
 
 <div class="cover" id="cover" role="dialog" aria-label="NOCO Payback">
@@ -1092,6 +1223,7 @@ const PICON={building:"building",lights:"bulb",heater:"flame",bill:"bill"};
 const TILE={building:["building","329 Ellicott St","Storage and warehouse, downtown Buffalo"],lights:["bulb","Lights","About 25 metal halide high bays"],heater:["flame","Heaters","2 gas unit heaters, 1998, 80%"],bill:["bill","Bill","National Grid, Sep 2026"]};
 const photo=(k,label,h)=>PHOTOS[k]?`<img class="photo" src="${PHOTOS[k]}" alt="${esc(label)}" style="height:${h}px">`
   :`<div class="photo tile${k==="building"?" wide":""}" style="min-height:${h}px"><span class="tile-ic">${ic(TILE[k][0],20)}</span><span><b>${TILE[k][1]}</b><span>${TILE[k][2]}</span></span></div>`;
+const PCHK=[["Lighting","Lighting"],["Heating and cooling","Cooling"],["Wall insulation","Wall insulation"],["Roof, for solar","Roof"]];
 const TECH={name:"Jordan Ellis",role:"NOCO energy technician"};
 /* The visit time is picked by the presenter on the phone (step 3). Next books the first open slot if nothing was picked. */
 const bk={day:null,slot:null,done:false};
@@ -1180,7 +1312,7 @@ function renderPhone(){
   if(P===4){
     h=`<div class="onsite">${ic("glasses",22)}<span><b>Your technician is on site now</b>Your savings arrive later today.</span></div>
      <div class="card tight"><div class="row" style="gap:12px;flex-wrap:nowrap"><span class="av lg">${initials(TECH.name)}</span><span class="col" style="gap:0"><b>${esc(TECH.name)}</b><span class="muted" style="font-size:13px">${esc(TECH.role)}</span></span></div></div>
-     <div class="card tight"><span class="eyebrow">What they're checking</span><div class="checks">${["Lighting","Heating and cooling","Wall insulation","Roof, for solar"].map(s=>`<div class="chk"><span class="spin sm"></span>${s}</div>`).join("")}</div></div>
+     <div class="card tight"><span class="eyebrow">What they're checking</span><div class="checks">${(()=>{const fs=ui.walk!=null?foundSet(ui.walk):null;return PCHK.map(([s,key])=>`<div class="chk" data-pchk="${key}">${!fs||fs.has(key)?`<span class="dot y">${ic("check",13,3)}</span>`:`<span class="spin sm"></span>`}${s}</div>`).join("")})()}</div></div>
      <span class="fine">Nothing to do. We'll send an alert when your savings are ready.</span>`;
   }
   if(P===5){
@@ -1225,15 +1357,19 @@ const PANEL=["","New lead","Bill received","Visit booked","Live walkthrough","Bu
 /* Last step: the whole story on one screen, to leave up during Q&A. */
 function recapHTML(f,b){
   const path=[["user","Signs up","Building auto-filled"],["bill","Snaps one bill","Read in seconds"],["glasses","Free visit","Tech talks, AI listens"],["spark","Same-day offer","Incentives filed"]];
-  return `<div class="recap"><div class="rbanner"><span class="eyebrow">The recap</span><h2 class="rhead">One free visit. A <span class="money">${$0(b.cost)}</span> project for NOCO.</h2></div>
+  return `<div class="recap"><div class="rbanner"><span class="eyebrow">The recap</span><h2 class="rhead">One free visit. A <span class="money" data-cu="rc" data-v="${Math.round(b.cost)}" data-f="$">${$0(b.cost)}</span> project for NOCO.</h2></div>
    <div class="kpis rk">${[["Incentives NOCO files",$0(b.inc),""],["Time to quote","Same day","money","Was about 2 weeks"]].map(x=>`<div class="kpi"><span class="lbl">${x[0]}</span><b class="${x[2]}">${x[1]}</b>${x[3]?`<span class="muted" style="font-size:12.5px">${x[3]}</span>`:""}</div>`).join("")}</div>
-   <div class="mline">${ic("building",18)}<span><b class="num">${MKT.accts.toLocaleString()}</b> commercial accounts in Buffalo could start the same way.</span>${srcTag(SRC.uer+", "+MKT.month)}</div>
+   <div class="mline">${ic("building",18)}<span><b class="num" data-cu="ra" data-v="${MKT.accts}" data-f="n">${MKT.accts.toLocaleString()}</b> commercial accounts in Buffalo could start the same way.</span>${srcTag(SRC.uer+", "+MKT.month)}</div>
    <ol class="rpath">${path.map((x,i)=>`<li><span class="icirc sm">${ic(x[0],16)}</span><span><b>${i+1}. ${x[1]}</b><span class="muted">${x[2]}</span></span></li>`).join("")}</ol>
-   <div class="kv"><span class="muted" style="font-size:12.5px">${esc(b.name)}: ${b.list.map(r=>r.name).join(" + ")}. Building data from the City of Buffalo assessment roll, energy prices from NYSERDA. Savings are NOCO estimates until confirmed on install.</span><span class="pill ok" style="flex:none">${ic("check",12,3)}Install ${esc(INSTALL.split(" · ")[0])}</span></div></div>`}
+   <div class="kv"><span class="muted" style="font-size:12.5px">Savings are estimates until confirmed on install. Data: City of Buffalo, NYSERDA.</span><span class="pill ok" style="flex:none">${ic("check",12,3)}Install ${esc(INSTALL.split(" · ")[0])}</span><button class="btn cta" data-fin style="flex:none">The bigger picture ${ic("right",16,2.4)}</button></div></div>`}
 const BUILD=["Reading the transcript","Pulling out equipment and conditions","Running NOCO's savings calculator","Matching incentive programs"];
 function foundRows(f,src){const o=src?ruleWalk(src):f;return [["Lighting",o.lighting],["Heating",o.heatSystem&&o.heatSystem!=="Not yet inspected"?o.heatSystem+(o.heatEff?`, ${Math.round(o.heatEff*100)}%`:""):null],["Cooling",o.coolSystem&&o.coolSystem!=="Not yet inspected"?o.coolSystem:null],["Wall insulation",o.existR&&src?"R-"+o.existR:null],["Ceiling height",o.ceil&&src?o.ceil+" ft":null],["Roof",o.roof&&o.roof!=="unknown"?o.roof:null]]}
-function foundHTML(f,t){const iss=ruleWalk(t).issues||[];return `<h3>Found on site</h3><div class="found">${foundRows(f,t).map(x=>`<div class="kv"><span class="muted">${x[0]}</span>${x[1]?`<b>${esc(cap(x[1]))}</b>`:`<span class="muted">Listening…</span>`}</div>`).join("")}</div>
-  ${iss.length?`<span class="eyebrow">Noted on site</span><ul class="issues">${iss.map(i=>`<li>${ic("alert",16)}<span>${esc(i)}</span></li>`).join("")}</ul>`:""}`}
+const KW=/(14 feet|metal halide high bays|25 fixtures|on all day|two gas unit heaters|1998|80 percent efficiency|one rooftop unit|15 years old|R-7 at best|worn seals|daylight under door two|good condition|no shading)/g;
+const txHTML=t=>esc(t).replace(KW,'<mark class="kw">$1</mark>');
+const foundSet=t=>new Set(foundRows(F[0],t).filter(x=>x[1]).map(x=>x[0]));
+function foundHTML(f,t,fresh){const iss=ruleWalk(t).issues||[],rows=foundRows(f,t),got=rows.filter(x=>x[1]).length;return `<div class="row between"><h3>Found on site</h3><span class="fcount${got===rows.length?" all":""}">${got} of ${rows.length}</span></div><div class="found">${rows.map(x=>`<div class="kv${fresh&&fresh.has(x[0])?" hit":""}"><span class="muted">${x[0]}</span>${x[1]?`<b>${esc(cap(x[1]))}</b>`:`<span class="muted">Listening…</span>`}</div>`).join("")}</div>
+  ${iss.length?`<span class="eyebrow">Noted on site</span><ul class="issues">${iss.map((i,n)=>`<li class="${fresh&&fresh.has("issue"+n)?"hit":""}">${ic("alert",16)}<span>${esc(i)}</span></li>`).join("")}</ul>`:""}`}
+const INN=[6,11,17,21,21];const inmHTML=bs=>Array.from({length:21},(_,i)=>`<i class="${i<INN[bs]?"on":""}${bs>0&&i>=INN[bs-1]&&i<INN[bs]?" fresh":""}"></i>`).join("");
 const bstepsHTML=bs=>BUILD.map((s,i)=>`<li class="${i<bs?"done":i===bs?"now":""}">${i<bs?`<span class="dot">${ic("check",13,3)}</span>`:i===bs?`<span class="spin"></span>`:`<span class="dot"></span>`}${s}</li>`).join("");
 /* NOCO's real quoting time isn't known yet, so "about 2 weeks" is labeled as our estimate. */
 const NOCO_MORE=["EV charging","Backup generators"];
@@ -1323,33 +1459,59 @@ function renderConsole(){
      <div class="row" style="gap:10px;flex-wrap:nowrap"><span class="av">${initials(TECH.name)}</span><span class="col" style="gap:0"><b>${esc(TECH.name)}</b><span class="muted" style="font-size:13px">Assigned · smart glasses ready</span></span></div>${bk.done?`<button class="btn cta" data-adv="4" style="align-self:flex-start">Start walkthrough</button>`:`<span class="pill warn" style="align-self:flex-start">${ic("clock",12,2.4)}Waiting on the customer</span>`}</div>
     <div class="box"><h3>Walkthrough checklist</h3><div class="checks">${["Lighting type and hours","Heating and cooling","Wall insulation","Roof, for solar","Doors and air leaks"].map(s=>`<div class="chk"><span class="dot"></span>${s}</div>`).join("")}</div></div></div>`;
   if(K===4){const t=ui.walk!=null?ui.walk:SAMPLE_WALK,live=ui.walk!=null;
-    h=`<div class="grid2 wide-l"><div class="box"><div class="row between"><h3>${ic("glasses",18)} ${esc(TECH.name)}</h3><span class="live${live?" on":""}"><i></i>${live?"LIVE":"RECORDED"}</span></div>
-      <div class="tx" id="tx">${esc(t)}${live?`<span class="caret"></span>`:""}</div>${live?"":`<button class="btn cta" data-adv="5" style="align-self:flex-start">Build offer</button>`}</div>
+    h=`<div class="grid2 wide-l"><div class="box"><div class="row between"><h3>${ic("glasses",18)} ${esc(TECH.name)}${live?`<span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>`:""}</h3><span class="live${live?" on":""}"><i></i>${live?"LIVE":"RECORDED"}</span></div>
+      <div class="tx" id="tx">${txHTML(t)}${live?`<span class="caret"></span>`:""}</div>${live?"":`<button class="btn cta" data-adv="5" style="align-self:flex-start">Build offer</button>`}</div>
      <div class="box" id="foundbox">${foundHTML(f,t)}</div></div>`}
   if(K===5){const bs=ui.bstep!=null?ui.bstep:BUILD.length,rs=good(recs(f));
     h=`<div class="grid2"><div class="box"><h3>What the AI did</h3><ol class="bsteps" id="bsl">${bstepsHTML(bs)}</ol>
-      <div class="ailine">${ic("spark",18)}<span><b style="color:var(--ink)">21 of 21</b> quote inputs filled. Formulas do the math.</span></div></div>
-     <div class="box"><h3>Upgrades ranked</h3>${bs<BUILD.length?`<div class="empty">Ranking upgrades…</div>`:`<div class="others">${rs.map(r=>`<div class="kv"><span class="row" style="gap:10px;flex-wrap:nowrap"><span class="icirc sm">${ic(RECI[r.key],16)}</span><b>${r.name}</b></span><span class="col" style="gap:0;text-align:right"><b class="money">${$0(r.save)}/yr</b><span class="muted" style="font-size:12px">${$0(r.inc)} incentive</span></span></div>`).join("")}</div>`}</div></div>`}
-  if(K===9)h=recapHTML(f,b);
+      <div class="inmeter" id="inm">${inmHTML(bs)}</div><div class="ailine">${ic("spark",18)}<span><b style="color:var(--ink)" id="inn">${INN[bs]} of 21</b> quote inputs filled. Formulas do the math.</span></div></div>
+     <div class="box"><h3>Upgrades ranked</h3>${bs<BUILD.length?`<div class="empty">Ranking upgrades…</div>`:`<div class="others ranked">${rs.map(r=>`<div class="kv"><span class="row" style="gap:10px;flex-wrap:nowrap"><span class="icirc sm">${ic(RECI[r.key],16)}</span><b>${r.name}</b></span><span class="col" style="gap:0;text-align:right"><b class="money">${$0(r.save)}/yr</b><span class="muted" style="font-size:12px">${$0(r.inc)} incentive</span></span><i class="rbar" style="--w:${Math.round(r.save/Math.max(...rs.map(x=>x.save))*100)}%"></i></div>`).join("")}</div>`}</div></div>`}
+  if(K===9){if(changed){delete cuLast.rc;delete cuLast.ra}h=recapHTML(f,b)}
   else if(K>=6){const acc=K>=7,pick=b;
     const status=K===6?`<span class="pill warn">${ic("clock",12,2.4)}Customer is comparing two offers</span><span class="muted">Sent same day</span>`
       :K===7?`<span class="pill ok">${ic("check",12,3)}${esc(f.contact)} picked ${esc(pick.name)}</span><button class="btn cta${ui.booking?" pressed":""}" data-adv="8">Schedule install</button>`
       :`<span class="pill ok">${ic("check",12,3)}Install ${esc(INSTALL)}</span><button class="btn cta" data-adv="9">See the recap ${ic("right",16,2.4)}</button>`;
     h=`<div class="box statusbar">${status}<span class="pv">Project value <b data-cu="pv" data-v="${Math.round(pick.cost)}" data-f="$">${$0(pick.cost)}</b></span></div>
-    <div class="deal"><div class="deal-in"><div class="row" style="gap:12px;flex-wrap:nowrap"><span class="sq">${ic(RECI[pick.list[0].key],22)}</span><span class="col" style="gap:0;text-align:left"><span class="eyebrow">${acc?"Accepted offer":"Recommended offer"}</span><h3>${pick.name}</h3><span class="what">${pick.list.map(r=>r.name).join(" + ")}</span></span></div>${baHTML(o.spend,pick)}
+    <div class="deal"><div class="deal-in"><div class="row" style="gap:12px;flex-wrap:nowrap"><span class="sq">${ic(RECI[pick.list[0].key],22)}</span><span class="col" style="gap:0;text-align:left"><span class="eyebrow">${acc?"Accepted offer":"Recommended offer"}</span><h3>${pick.name}</h3><span class="what">${pick.list.map(r=>r.name).join(" + ")}</span></span><button class="btn ghost" data-quote style="margin-left:auto;flex:none" title="Open the one-page quote (Q)">${ic("doc",15,2.2)}View quote</button></div>${baHTML(o.spend,pick)}
       <div class="nums"><div><b>${$0(pick.net)}</b><span>Customer pays</span></div><div><b>${pbRange(pick,c).replace(" yrs","")}</b><span>Years to pay back</span></div><div><b>${$0(pick.inc)}</b><span>Incentives NOCO files</span></div></div></div>${alsoHTML(false)}</div>`}
   $("cbody").innerHTML=h;
   countUps($("cbody"));
   if(changed){const cb=$("cbody");cb.classList.remove("enter");void cb.offsetWidth;cb.classList.add("enter")}
 }
+let lastCap=-1,t0=null;
+/* Pitch timer for a 4 minute slot: starts when the cover closes, orange at 3:00, red at 4:00. Click to reset. */
+function paintTimer(){const el=$("ptimer");if(!el)return;const s=t0?Math.floor((Date.now()-t0)/1000):0;el.textContent=Math.floor(s/60)+":"+String(s%60).padStart(2,"0");el.classList.toggle("warn",s>=180&&s<240);el.classList.toggle("over",s>=240)}
+setInterval(paintTimer,1000);
+document.addEventListener("click",e=>{if(e.target.closest("#ptimer")){t0=Date.now();paintTimer()}});
+/* Data pulse between the phone and the console, so the audience sees the two screens are linked. */
+async function beam(dir,label){
+  const a=document.querySelector(".device-col .device"),b=$("console");if(!a||!b||reduce)return;
+  const ra=a.getBoundingClientRect(),rb=b.getBoundingClientRect();if(!ra.width||!rb.width||rb.left<ra.right-4){return}
+  let host=$("beam");if(!host){host=document.createElement("div");host.id="beam";host.innerHTML=`<i class="bl"></i><i class="bd"></i><span class="bt"></span>`;document.body.appendChild(host)}
+  const y=Math.min(ra.top+ra.height*.42,innerHeight-80),x1=ra.right-6,x2=rb.left+6,from=dir==="p2c"?x1:x2,to=dir==="p2c"?x2:x1,L=host.querySelector(".bl"),D=host.querySelector(".bd"),T=host.querySelector(".bt"),dur=620,ease="cubic-bezier(.5,0,.2,1)";
+  L.style.cssText=`left:${Math.min(x1,x2)}px;top:${y-1.5}px;width:${Math.abs(x2-x1)}px`;D.style.cssText=`left:0;top:${y}px`;T.textContent=label||"";T.style.cssText=`left:${(x1+x2)/2}px;top:${y}px`;
+  L.animate([{opacity:0},{opacity:.9,offset:.3},{opacity:0}],{duration:dur+200});
+  T.animate([{opacity:0,transform:"translate(-50%,-110%)"},{opacity:1,transform:"translate(-50%,-150%)",offset:.25},{opacity:1,transform:"translate(-50%,-150%)",offset:.8},{opacity:0,transform:"translate(-50%,-190%)"}],{duration:dur+500});
+  const an=D.animate([{transform:`translateX(${from}px) scale(.6)`,opacity:0},{transform:`translateX(${from}px) scale(1)`,opacity:1,offset:.12},{transform:`translateX(${to}px) scale(1)`,opacity:1,offset:.9},{transform:`translateX(${to}px) scale(1.8)`,opacity:0}],{duration:dur,easing:ease});
+  try{await an.finished}catch(e){}
+  const hit=dir==="p2c"?b:a;hit.classList.remove("linkhit");void hit.offsetWidth;hit.classList.add("linkhit");
+}
+function confetti(){
+  const a=document.querySelector(".device-col .device");if(!a||reduce)return;const r=a.getBoundingClientRect();if(!r.width)return;
+  const cx=r.left+r.width/2,cy=r.top+r.height*.3,cols=["#0F6B3C","#E8731C","#7DBE95","#F5A865","#FFFFFF"];
+  for(let i=0;i<46;i++){const el=document.createElement("i");el.className="confetti";el.style.background=cols[i%5];if(i%5===4)el.style.boxShadow="0 0 0 1px #D4DDD7";document.body.appendChild(el);
+    const ang=-Math.PI/2+(Math.random()-.5)*2.2,v=140+Math.random()*220,dx=Math.cos(ang)*v,dy=Math.sin(ang)*v,rot=(Math.random()-.5)*900;
+    el.animate([{transform:`translate(${cx}px,${cy}px) rotate(0)`,opacity:1},{transform:`translate(${cx+dx}px,${cy+dy}px) rotate(${rot/2}deg)`,opacity:1,offset:.35,easing:"ease-in"},{transform:`translate(${cx+dx*1.25}px,${cy+dy+420}px) rotate(${rot}deg)`,opacity:0}],{duration:1500+Math.random()*700,easing:"cubic-bezier(.1,.7,.3,1)"}).onfinish=()=>el.remove()}
+}
 function renderDemo(){
   const s=STEPS[k];
-  $("demo").innerHTML=`<span class="dtxt"><small>${k?`Step ${k} of ${LAST}`:"Ready to start"}</small><span class="dots" aria-hidden="true">${STEPS.slice(1).map((_,i)=>`<i class="${i+1<k?"on":i+1===k?"now":""}"></i>`).join("")}</span></span>
+  $("demo").innerHTML=`<span class="dtxt"><small>${k?`Step ${k} of ${LAST}`:"Ready to start"} <span class="ptimer" id="ptimer" title="Pitch timer. Click to reset.">0:00</span></small><span class="dots" aria-hidden="true">${STEPS.slice(1).map((_,i)=>`<i class="${i+1<k?"on":i+1===k?"now":""}"></i>`).join("")}</span></span>
    <button class="btn ghost" data-demo="back" ${k===0?"disabled":""}>${ic("left",16,2.4)}Back</button>
    ${k<LAST?`<button class="btn hi" data-demo="next" ${ui.busy?"disabled":""}>${ui.busy?"Playing…":k===0?"Start":"Next"} ${ic("right",16,2.4)}</button>`:`<span class="pill ok">${ic("check",12,3)}Demo complete</span>`}
-   <button class="btn ghost" data-demo="restart">Restart</button>`;
-  $("plabel").innerHTML=`<span class="eyebrow">Customer app</span><span class="capline">${k?`<span class="sn">${k}</span>`:""}${esc(s.c)}</span>`;
-  $("clabel").innerHTML=`<span class="eyebrow">NOCO console</span><span class="capline">${k?`<span class="sn">${k}</span>`:""}${esc(s.n)}</span>`;
+   <button class="btn ghost" data-demo="restart">Restart</button>`;if(k===0&&ov)closeOv();paintTimer();
+  const capNew=k!==lastCap;lastCap=k;
+  $("plabel").innerHTML=`<span class="eyebrow">Customer app</span><span class="capline${capNew?" capin":""}">${k?`<span class="sn">${k}</span>`:""}${esc(s.c)}</span>`;
+  $("clabel").innerHTML=`<span class="eyebrow">NOCO console</span><span class="capline${capNew?" capin":""}">${k?`<span class="sn">${k}</span>`:""}${esc(s.n)}</span>`;
 }
 function renderAll(){renderPhone();renderConsole();renderDemo()}
 async function go(n,animate){
@@ -1360,16 +1522,25 @@ async function go(n,animate){
   const alive=()=>my===tok,step=async ms=>{await wait(ms);return alive()};
   if(!animate)return renderAll();
   ui.busy=true;renderDemo();
-  if(n===1){ui.pending=true;cs.view="map";renderPhone();renderConsole();if(!await step(1700))return;ui.pending=false;cs.view="customer";renderPhone();renderConsole()}
-  else if(n===2){ui.scanning=true;ui.ck=1;setState(1);renderPhone();renderConsole();if(!await step(3200))return;ui.scanning=false;ui.ck=null;setState(2);renderPhone();renderConsole()}
-  else if(n===4){const w=SAMPLE_WALK.split(" ");ui.walk="";renderPhone();renderConsole();
-    for(let i=0;i<w.length;i+=2){ui.walk=w.slice(0,i+2).join(" ");const tx=$("tx");if(tx&&cs.view==="customer"){tx.innerHTML=esc(ui.walk)+`<span class="caret"></span>`;tx.scrollTop=tx.scrollHeight;const fb=$("foundbox"),tmp=document.createElement("div");tmp.innerHTML=foundHTML(F[0],ui.walk);fb.innerHTML=tmp.innerHTML}else renderConsole();if(!await step(200))return}
-    ui.walk=null;renderConsole()}
+  if(n===1){ui.pending=true;cs.view="map";renderPhone();renderConsole();if(!await step(1500))return;ui.pending=false;renderPhone();await beam("p2c","New lead");if(!alive())return;cs.view="customer";renderConsole()}
+  else if(n===2){ui.scanning=true;ui.ck=1;setState(1);renderPhone();renderConsole();if(!await step(3200))return;ui.scanning=false;setState(2);renderPhone();if(!await step(500))return;await beam("p2c","Bill data");if(!alive())return;ui.ck=null;renderConsole()}
+  else if(n===4){const w=SAMPLE_WALK.split(" ");ui.walk="";renderPhone();renderConsole();if(!await step(700))return;
+    let had=new Set(),hadIss=0;
+    for(let i=1;i<=w.length;i++){ui.walk=w.slice(0,i).join(" ");const tx=$("tx"),word=w[i-1];
+      if(tx&&cs.view==="customer"){const was=tx.querySelectorAll("mark").length;tx.innerHTML=txHTML(ui.walk)+`<span class="caret"></span>`;const ms=tx.querySelectorAll("mark");ms.forEach((m,j)=>{if(j<was)m.style.animation="none"});tx.scrollTop=tx.scrollHeight;
+        const now=foundSet(ui.walk),iss=(ruleWalk(ui.walk).issues||[]).length,fresh=new Set([...now].filter(x=>!had.has(x)));if(iss>hadIss)fresh.add("issue"+(iss-1));
+        if(fresh.size){$("foundbox").innerHTML=foundHTML(F[0],ui.walk,fresh);fresh.forEach(key=>{const el=document.querySelector(`#ph [data-pchk="${key}"] .spin`);if(el)el.outerHTML=`<span class="dot y tickin">${ic("check",13,3)}</span>`})}
+        had=now;hadIss=iss}
+      else renderConsole();
+      if(!await step(/[.,]$/.test(word)?(word.endsWith(".")?420:210):95))return}
+    if(!await step(500))return;ui.walk=null;renderPhone();renderConsole()}
   else if(n===5){ui.pk=4;ui.bstep=0;setState(4);renderPhone();setState(5);renderConsole();
-    for(let i=1;i<=BUILD.length;i++){if(!await step(1200))return;ui.bstep=i;const l=$("bsl");if(l&&i<BUILD.length)l.innerHTML=bstepsHTML(i);else renderConsole()}
+    for(let i=1;i<=BUILD.length;i++){if(!await step(1200))return;ui.bstep=i;const l=$("bsl");if(l&&i<BUILD.length){l.innerHTML=bstepsHTML(i);l.querySelectorAll("li.done .dot").forEach((d,j)=>{if(j<i-1)d.style.animation="none"});const m=$("inm");if(m)m.innerHTML=inmHTML(i);const nn=$("inn");if(nn)nn.textContent=INN[i]+" of 21"}else renderConsole()}
+    if(!await step(1500))return;await beam("c2p","Offer ready");if(!alive())return;
     ui.bstep=null;ui.pk=null;renderPhone();renderConsole();pnotif("Your savings are ready","Tap to see the offers for "+F[0].name+".")}
-  else if(n===7){ui.picking=true;ui.ck=6;setState(6);renderPhone();renderConsole();if(!await step(1700))return;ui.picking=false;ui.ck=null;setState(7);renderPhone();renderConsole()}
-  else if(n===8){ui.booking=true;ui.ck=7;ui.pk=7;setState(7);renderPhone();renderConsole();if(!await step(1700))return;ui.booking=false;ui.ck=null;ui.pk=null;setState(8);renderPhone();renderConsole()}
+  else if(n===7){ui.picking=true;ui.ck=6;setState(6);renderPhone();renderConsole();if(!await step(1500))return;ui.picking=false;setState(7);renderPhone();confetti();await beam("p2c","Offer accepted");if(!alive())return;ui.ck=null;renderConsole();const dl=document.querySelector("#cbody .deal");if(dl)dl.classList.add("won")}
+  else if(n===8){ui.booking=true;ui.ck=7;ui.pk=7;setState(7);renderPhone();renderConsole();if(!await step(1500))return;ui.booking=false;ui.ck=null;setState(8);renderConsole();await beam("c2p","Install date");if(!alive())return;ui.pk=null;renderPhone()}
+  else if(n===6){renderConsole();await beam("c2p","Two offers");if(!alive())return;renderPhone()}
   else{renderPhone();renderConsole()}
   if(alive()){ui.busy=false;renderDemo()}
 }
@@ -1378,7 +1549,7 @@ async function advance(){
   if(k===3&&!bk.done){ui.busy=true;renderDemo();const my=tok;bk.day=bk.day??0;renderPhone();await wait(500);if(my!==tok)return;bk.slot=bk.slot??0;renderPhone();await wait(600);if(my!==tok)return;
     await book();await wait(1300);if(my!==tok)return;ui.busy=false}
   go(k+1,true)}
-async function book(){bk.done=true;setVisit();F[0].visitAt=VISIT;renderPhone();renderConsole()}
+async function book(){const my=tok;bk.done=true;setVisit();F[0].visitAt=VISIT;renderPhone();await beam("p2c","Visit booked");if(my!==tok)return;renderConsole()}
 document.addEventListener("click",e=>{
   const d=e.target.closest("[data-bday]"),t=e.target.closest("[data-bslot]"),bb=e.target.closest("[data-book]");
   if(k===3&&!bk.done&&!ui.busy){if(d){bk.day=+d.dataset.bday;renderPhone();return}if(t){bk.slot=+t.dataset.bslot;renderPhone();return}if(bb&&!bb.disabled){book();return}}
@@ -1387,7 +1558,7 @@ $("demo").addEventListener("click",e=>{const b=e.target.closest("[data-demo]");i
   if(a==="next"&&k<LAST)advance();if(a==="back"&&k>0)go(k-1,false);if(a==="restart")go(0,false)});
 /* Title cover, shown on load. Click, Enter, Space or the right arrow opens the demo. */
 const coverOn=()=>!$("cover").classList.contains("gone");
-function hideCover(){$("cover").classList.add("gone")}
+function hideCover(){$("cover").classList.add("gone");if(!t0){t0=Date.now();paintTimer()}}
 $("coverGo").addEventListener("click",hideCover);
 document.addEventListener("keydown",e=>{if(coverOn()&&["Enter"," ","ArrowRight"].includes(e.key)){e.preventDefault();e.stopImmediatePropagation();hideCover()}},true);
 document.addEventListener("keydown",e=>{if(e.target.closest&&e.target.closest("input,textarea,select"))return;
@@ -1406,6 +1577,79 @@ tick();setInterval(tick,20000);
 document.querySelectorAll("[data-logo]").forEach(e=>e.src=LOGO);
 let v0="split";try{v0=localStorage.getItem("noco-view")||"split"}catch(e){}
 setView(v0);go(0,false);
+
+
+/* ---------- overlays: finale, Q&A backup screens, quote sheet ---------- */
+var ov=null,ovTok=0;
+const ovEl=()=>{let e=$("ovl");if(!e){e=document.createElement("div");e.id="ovl";e.setAttribute("role","dialog");document.body.appendChild(e);
+  e.addEventListener("click",ev=>{if(ev.target===e||ev.target.closest("[data-oclose]"))closeOv();const q=ev.target.closest("[data-qa]");if(q)openQA(+q.dataset.qa);if(ev.target.closest("[data-fin]"))openFinale()})}return e};
+function closeOv(){ov=null;ovTok++;const e=$("ovl");if(e){e.className="";e.innerHTML=""}}
+const oxBtn=()=>`<button class="ox" data-oclose aria-label="Close">${ic("x",20,2.4)}</button>`;
+const QA=["How NOCO makes money","Where every number comes from","What is real, what is estimated","What it takes to build"];
+const qtabs=n=>`<div class="qtabs">${QA.map((t,i)=>`<button class="qtab" data-qa="${i+1}" aria-current="${i+1===n}"><kbd>${i+1}</kbd>${t}</button>`).join("")}</div>`;
+function openQA(n){
+  const keep=JSON.stringify(F),f=setState(LAST),{b}=choices(f);F.splice(0,F.length,...JSON.parse(keep));let body="";
+  if(n===1)body=`<div class="qgrid"><div class="qc"><h4>${ic("cal",18)}The visit is free</h4><b class="big money">$0</b><span>The customer pays nothing to find out what they could save. That removes the reason to say no.</span></div>
+    <div class="qc"><h4>${ic("dollar",18)}NOCO earns on the install</h4><b class="big">${$0(b.cost)}</b><span>Project value for this one building. The customer pays ${$0(b.net)} after ${$0(b.inc)} in incentives that NOCO files for them.</span></div>
+    <div class="qc"><h4>${ic("clock",18)}Faster quotes, more projects</h4><b class="big">Same day</b><span>Quoting takes about two weeks by hand today (our estimate). The same technician can now quote the customer before leaving the building.</span></div></div>
+    <span class="qnote">Each new customer is also a lead for NOCO's other services: ${NOCO_MORE.join(", ").toLowerCase()}, plus fuel and electric supply.</span>`;
+  if(n===2)body=`<table class="qtable"><thead><tr><th>On screen</th><th>Comes from</th><th>As of</th></tr></thead><tbody>
+    <tr><td>Building record</td><td>${SRC.roll} (Open Data Buffalo). Address, parcel number, property class, lot size and assessed value are as recorded.</td><td>2019 roll</td></tr>
+    <tr><td>${n0(MKT.accts)} business accounts</td><td>${SRC.uer}, City of Buffalo, National Grid commercial electric accounts.</td><td>${MKT.month}</td></tr>
+    <tr><td>${MKT.price}¢ per kWh</td><td>NYSERDA monthly average commercial electricity price for New York.</td><td>${MKT.priceMonth}</td></tr>
+    <tr><td>Incentive program</td><td>${SRC.ngrid}: for customers under 250 kW peak demand, retrofits only.</td><td>Current</td></tr>
+    <tr><td>${esc(CASES[0].who)}</td><td>${SRC.ee}: a ${$0(CASES[0].cost)} project saving ${$0(CASES[0].save)} a year.</td><td>Completed</td></tr></tbody></table>
+    <span class="qnote">All five are public. Anyone can look them up, including NOCO.</span>`;
+  if(n===3)body=`<div class="qgrid"><div class="qc real"><h4>${ic("check",18,2.6)}Real public data</h4><ul><li>The building: 329 Ellicott St, its parcel, class, lot and assessed value</li><li>${n0(MKT.accts)} Buffalo business electric accounts</li><li>${MKT.price}¢ per kWh New York business price</li><li>The National Grid small business program</li><li>The Roswell Park result</li></ul></div>
+    <div class="qc est"><h4>${ic("spark",18)}Our estimates</h4><ul><li>Savings, project cost and incentive for each upgrade</li><li>Building size, about 12,000 sq ft</li><li>Two weeks to quote by hand today</li><li>The pipeline totals on the last screen</li></ul></div>
+    <div class="qc demo"><h4>${ic("user",18)}Made up for the demo</h4><ul><li>The business name and contact</li><li>The bill and its amounts</li><li>The technician and the walkthrough script</li></ul></div></div>
+    <span class="qnote">The formulas are built so NOCO's own customer results and pricing drop in and replace our estimates.</span>`;
+  if(n===4)body=`<div class="qgrid two"><div class="qc"><h4>${ic("bill",18)}1. Read the bill</h4><span>AI reads a photo of the bill and pulls out the dates, usage and amount due.</span></div>
+    <div class="qc"><h4>${ic("mic",18)}2. Listen to the walkthrough</h4><span>The technician talks into a phone or smart glasses. Speech becomes text, and the AI pulls out the equipment and conditions.</span></div>
+    <div class="qc"><h4>${ic("list",18)}3. Fill the quote inputs</h4><span>Bill, walkthrough and public records fill all 21 inputs. NOCO's own formulas do the math, so the AI never invents a dollar figure.</span></div>
+    <div class="qc"><h4>${ic("doc",18)}4. Send the offer</h4><span>Incentives are matched from a rules table NOCO controls, and the offer lands in the customer's app the same day.</span></div></div>
+    <span class="qnote">A sensible first step is a pilot: one technician and a handful of real customers, with every AI quote checked against a hand-built one.</span>`;
+  ov={t:"qa",n};const e=ovEl();e.className="show";
+  e.innerHTML=`${oxBtn()}<div class="qa"><span class="eyebrow">Q&amp;A</span><h2>${QA[n-1]}</h2>${body}${qtabs(n)}</div><span class="okeys">Keys 1 to 4 switch screens · Esc closes</span>`}
+function openQuote(){
+  const f=F[0],{o,b}=choices(f),c=conf(f),qn="PB-"+f.rec.sbl.slice(-7,-3)+"-"+new Date().getFullYear();
+  ov={t:"quote"};const e=ovEl();e.className="show";
+  e.innerHTML=`${oxBtn()}<div class="sheet"><div class="sh"><img src="${LOGO}" alt="NOCO"><div class="r"><b style="color:#13231A">Quote ${qn}</b><br>${new Date().toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}<br>Commercial Energy Services</div></div>
+   <h2>Energy upgrade proposal</h2>
+   <div class="parties"><div><span>Prepared for</span><b>${esc(f.name)}</b><br>${esc(f.contact)}<br>${esc(f.addr)}</div><div><span>Prepared by</span><b>${esc(TECH.name)}</b><br>${esc(TECH.role)}<br>Site walkthrough ${esc(VISIT.split(" · ")[0])}</div></div>
+   <table><thead><tr><th>Upgrade</th><th>Project cost</th><th>Incentives</th><th>You pay</th><th>Saves a year</th></tr></thead>
+    <tbody>${b.list.map(r=>`<tr><td><b>${esc(r.name)}</b></td><td>${$0(r.cost)}</td><td>−${$0(r.inc)}</td><td>${$0(r.net)}</td><td>${$0(r.save)}</td></tr>`).join("")}</tbody>
+    <tfoot><tr><td>${esc(b.name)}</td><td>${$0(b.cost)}</td><td>−${$0(b.inc)}</td><td>${$0(b.net)}</td><td>${$0(b.save)}</td></tr></tfoot></table>
+   <div class="tot"><div><span>Energy bill now</span><b>${$0(o.spend)}/yr</b></div><div class="g"><span>With NOCO</span><b>${$0(o.spend-b.save)}/yr</b></div><div><span>Pays back in</span><b>${pbRange(b,c)}</b></div></div>
+   <span class="fineprint">NOCO files all incentive paperwork. Savings, costs and incentives are estimates based on your bill and the site walkthrough, and are confirmed before install. Electric price from NYSERDA, ${MKT.priceMonth}.</span>
+   <div class="sign"><span class="ln">Customer signature</span><span class="ln">Date</span><span class="stamp">${ic("spark",12,2.4)} Built the same day as the visit</span></div></div><span class="okeys">Esc closes</span>`}
+const fM=v=>v>=1e6?"$"+(v/1e6).toFixed(1)+"M":$0(Math.round(v/1000)*1000);
+async function openFinale(){
+  const f=F[0],{b}=choices(f),N=PROSPECTS.length,per=Math.round(b.cost),one=Math.floor(MKT.accts/100),my=++ovTok;
+  ov={t:"fin"};const e=ovEl();e.className="show fin";
+  e.innerHTML=`${oxBtn()}<div class="fin-in"><div class="mmap fin-map active">${miniMap(f)}<span class="scan"></span></div>
+   <div class="fin-side"><span class="eyebrow">The bigger picture</span><h2>One customer today. <em>All of downtown</em> tomorrow.</h2>
+    <div class="fstat"><span class="lbl">Downtown prospects already on the map</span><b><span id="fn">0</span><small>of ${N}</small></b><span class="src">${ic("doc",12,2)}Source: ${SRC.roll}</span></div>
+    <div class="fstat hi"><span class="lbl">Pipeline if each one matches this project</span><b id="fp">$0</b><span class="src">${ic("spark",12,2)}Our estimate, at about ${$0(Math.round(per/1000)*1000)} a project</span></div>
+    <div class="fstat fbig" id="fbig"><span class="lbl">Buffalo has ${n0(MKT.accts)} business electric accounts. If 1 in 100 says yes</span><b id="fm">$0</b><span class="src">${ic("spark",12,2)}Our estimate: ${one} projects. Accounts from NYSERDA, ${MKT.month}</span></div>
+    <span class="fclose fbig" id="fcl">Every one starts with a free visit and a same-day quote.</span></div></div><span class="okeys">Keys 1 to 4 open the Q&amp;A screens · Esc closes</span>`;
+  const alive=()=>my===ovTok,pins=[...e.querySelectorAll(".fin-map .pin:not([data-fac])")],fn=$("fn"),fp=$("fp");
+  await wait(1900);if(!alive())return;
+  for(let i=0;i<N;i++){const pn=pins[i];if(pn)pn.classList.add("lit");fn.textContent=i+1;fp.textContent=fM(per*(i+1));await wait(i<3?420:230);if(!alive())return}
+  await wait(700);if(!alive())return;$("fbig").classList.add("in");
+  const to=one*per,t0=performance.now(),fm=$("fm");const tick=t=>{if(!alive())return;const p=Math.min(1,(t-t0)/1600),x=1-Math.pow(1-p,3);fm.textContent=fM(to*x);if(p<1)requestAnimationFrame(tick)};requestAnimationFrame(tick);
+  await wait(1900);if(!alive())return;$("fcl").classList.add("in")}
+document.addEventListener("keydown",e=>{
+  if(coverOn()||(e.target.closest&&e.target.closest("input,textarea,select"))||e.metaKey||e.ctrlKey||e.altKey)return;
+  const stop=()=>{e.preventDefault();e.stopImmediatePropagation()};
+  if(/^[1-4]$/.test(e.key)){stop();return ov&&ov.t==="qa"&&ov.n===+e.key?closeOv():openQA(+e.key)}
+  if((e.key==="q"||e.key==="Q")&&k>=6){stop();return ov&&ov.t==="quote"?closeOv():openQuote()}
+  if(ov){if(e.key==="Escape"||e.key==="ArrowLeft"&&ov.t!=="qa"){stop();return closeOv()}
+    if(ov.t==="qa"&&(e.key==="ArrowRight"||e.key==="ArrowLeft")){stop();return openQA((ov.n-1+(e.key==="ArrowRight"?1:3))%4+1)}
+    if(["ArrowRight","ArrowLeft"," ","Enter","p","P"].includes(e.key))stop();return}
+  if(k===LAST&&!ui.busy&&(e.key==="ArrowRight"||e.key==="Enter")){stop();openFinale()}
+},true);
+document.addEventListener("click",e=>{if(e.target.closest("[data-quote]"))openQuote();else if(e.target.closest("#ovl"))return;else if(e.target.closest("[data-fin]"))openFinale()});
 
 /* Present mode for a projector. Toggle with the button or the P key. */
 function setPresent(on){document.body.classList.toggle("present",on);$("present").setAttribute("aria-pressed",on)}
